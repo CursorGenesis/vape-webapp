@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VapeShop - Каталог</title>
+    <title>VapeShop KG - Каталог</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,12 +15,9 @@
     <div class="app">
         <!-- Header -->
         <header class="header">
-            <h1 class="header-title">VapeShop</h1>
+            <h1 class="header-title">VapeShop KG</h1>
             <div class="header-right">
-                <div class="bonus-badge" id="bonusBadge">
-                    <span class="bonus-icon">💎</span>
-                    <span class="bonus-count" id="bonusCount">0</span>
-                </div>
+                <span class="header-location">📍 Бишкек</span>
             </div>
         </header>
 
@@ -56,18 +53,14 @@
                 <div class="empty-state" id="favoritesEmpty">
                     <span class="empty-icon">❤️</span>
                     <p>Нет избранных товаров</p>
-                    <small>Нажмите ❤️ на товаре, чтобы добавить в избранное</small>
+                    <small>Нажмите ❤️ на товаре, чтобы добавить</small>
                 </div>
             </div>
 
             <!-- Profile Page -->
             <div class="page" id="profilePage">
-                <div class="profile-header">
-                    <span class="profile-greeting">Добрый день 👋</span>
-                    <div class="profile-bonus">
-                        <span class="bonus-icon-lg">💎</span>
-                        <span class="bonus-amount" id="profileBonus">0</span>
-                    </div>
+                <div class="profile-header-simple">
+                    <span class="profile-greeting">Саламатсызбы! 👋</span>
                 </div>
                 <div class="profile-menu">
                     <div class="menu-item" onclick="openAddresses()">
@@ -80,9 +73,9 @@
                         <span class="menu-text">Мои заказы</span>
                         <span class="menu-arrow">›</span>
                     </div>
-                    <div class="menu-item" onclick="openBonusInfo()">
-                        <span class="menu-icon">💎</span>
-                        <span class="menu-text">Бонусная система</span>
+                    <div class="menu-item" onclick="openAbout()">
+                        <span class="menu-icon">ℹ️</span>
+                        <span class="menu-text">О магазине</span>
                         <span class="menu-arrow">›</span>
                     </div>
                 </div>
@@ -94,7 +87,7 @@
                     <h2>Корзина</h2>
                 </div>
                 <div class="cart-summary" id="cartSummary">
-                    <span id="cartItemsCount">0 товаров</span> на <span id="cartTotalTop">0 ₽</span>
+                    <span id="cartItemsCount">0 товаров</span> на <span id="cartTotalTop">0 сом</span>
                 </div>
                 <div class="cart-items-list" id="cartItemsList"></div>
                 <div class="promo-section">
@@ -102,12 +95,12 @@
                     <button class="promo-btn" onclick="applyPromo()">Применить</button>
                 </div>
                 <div class="cart-totals">
-                    <div class="total-row"><span>Товары:</span><span id="subtotal">0 ₽</span></div>
-                    <div class="total-row"><span>Скидка:</span><span id="discount" class="discount">0 ₽</span></div>
+                    <div class="total-row"><span>Товары:</span><span id="subtotal">0 сом</span></div>
+                    <div class="total-row"><span>Скидка:</span><span id="discount" class="discount">0 сом</span></div>
                     <div class="total-row"><span>Доставка:</span><span id="deliveryPrice">Бесплатно</span></div>
                 </div>
                 <button class="checkout-main-btn" id="checkoutMainBtn" onclick="openCheckout()">
-                    Оформить заказ на <span id="finalTotal">0 ₽</span>
+                    Оформить заказ на <span id="finalTotal">0 сом</span>
                 </button>
                 <div class="empty-state" id="cartEmpty">
                     <span class="empty-icon">🛒</span>
@@ -204,31 +197,20 @@
         </div>
     </div>
 
-    <!-- Bonus Info Modal -->
-    <div class="modal-overlay" id="bonusModal">
+    <!-- About Modal -->
+    <div class="modal-overlay" id="aboutModal">
         <div class="modal">
             <div class="modal-header">
-                <h2>Бонусная система</h2>
-                <button class="modal-close" onclick="closeBonusInfo()">✕</button>
+                <h2>О магазине</h2>
+                <button class="modal-close" onclick="closeAbout()">✕</button>
             </div>
-            <div class="bonus-info">
-                <div class="bonus-card">
-                    <span class="bonus-icon-xl">💎</span>
-                    <span class="bonus-value" id="bonusCardValue">0</span>
-                    <span class="bonus-label">бонусов</span>
-                </div>
-                <div class="bonus-rules">
-                    <h3>Как получить бонусы:</h3>
-                    <ul>
-                        <li>5% от каждой покупки</li>
-                        <li>Бонусы за отзывы</li>
-                        <li>Бонусы за приглашение друзей</li>
-                    </ul>
-                    <h3>Как потратить:</h3>
-                    <ul>
-                        <li>Оплачивайте до 30% заказа бонусами</li>
-                        <li>1 бонус = 1 рубль</li>
-                    </ul>
+            <div class="about-info">
+                <h3>VapeShop KG</h3>
+                <p>Магазин одноразовых электронных сигарет в Бишкеке</p>
+                <div class="contact-info">
+                    <p>📍 г. Бишкек, Кыргызстан</p>
+                    <p>📞 +996 XXX XXX XXX</p>
+                    <p>⏰ Работаем: 10:00 - 22:00</p>
                 </div>
             </div>
         </div>
@@ -248,14 +230,14 @@
                 </div>
                 <div class="form-group">
                     <label>Телефон</label>
-                    <input type="tel" id="customerPhone" required placeholder="+7 (999) 999-99-99">
+                    <input type="tel" id="customerPhone" required placeholder="+996 XXX XXX XXX">
                 </div>
                 <div class="form-group">
                     <label>Адрес доставки</label>
                     <select id="savedAddress" onchange="handleAddressChange()">
                         <option value="">Выберите сохранённый адрес</option>
                     </select>
-                    <textarea id="deliveryAddress" required placeholder="Или введите новый адрес"></textarea>
+                    <textarea id="deliveryAddress" required placeholder="Город, улица, дом, квартира"></textarea>
                 </div>
                 <div class="form-group">
                     <label>Способ доставки</label>
@@ -263,7 +245,8 @@
                         <label class="radio-option">
                             <input type="radio" name="delivery" value="courier" checked>
                             <span class="radio-custom"></span>
-                            <span class="radio-label"><strong>Курьер</strong><small>1-2 дня, 300 ₽</small></span>
+                            <span class="radio-label"><strong>Курьер по Бишкеку</strong><small>1-2 часа, 100
+                                    сом</small></span>
                         </label>
                         <label class="radio-option">
                             <input type="radio" name="delivery" value="pickup">
@@ -272,19 +255,11 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="checkbox-option">
-                        <input type="checkbox" id="useBonuses" onchange="updateCheckoutTotal()">
-                        <span class="checkbox-custom"></span>
-                        <span>Списать бонусы (<span id="availableBonuses">0</span> доступно)</span>
-                    </label>
-                </div>
                 <div class="order-summary">
-                    <div class="summary-row"><span>Товары:</span><span id="checkoutProducts">0 ₽</span></div>
-                    <div class="summary-row"><span>Скидка:</span><span id="checkoutDiscount">0 ₽</span></div>
-                    <div class="summary-row"><span>Бонусы:</span><span id="checkoutBonuses">0 ₽</span></div>
-                    <div class="summary-row"><span>Доставка:</span><span id="checkoutDelivery">300 ₽</span></div>
-                    <div class="summary-row total"><span>Итого:</span><span id="checkoutTotal">0 ₽</span></div>
+                    <div class="summary-row"><span>Товары:</span><span id="checkoutProducts">0 сом</span></div>
+                    <div class="summary-row"><span>Скидка:</span><span id="checkoutDiscount">0 сом</span></div>
+                    <div class="summary-row"><span>Доставка:</span><span id="checkoutDelivery">100 сом</span></div>
+                    <div class="summary-row total"><span>Итого:</span><span id="checkoutTotal">0 сом</span></div>
                 </div>
                 <button type="submit" class="submit-order-btn">📨 Отправить заказ</button>
             </form>
@@ -297,8 +272,7 @@
             <div class="success-icon">✅</div>
             <h2>Заказ оформлен!</h2>
             <p>Мы свяжемся с вами в ближайшее время</p>
-            <div class="bonus-earned">+<span id="earnedBonuses">0</span> 💎 бонусов начислено!</div>
-            <button class="success-btn" onclick="closeSuccess()">Отлично!</button>
+            <button class="success-btn" onclick="closeSuccess()">Рахмат! 🙏</button>
         </div>
     </div>
 
@@ -316,7 +290,7 @@
                 </div>
                 <div class="form-group">
                     <label>Адрес</label>
-                    <textarea id="addressValue" placeholder="Город, улица, дом, квартира" required></textarea>
+                    <textarea id="addressValue" placeholder="Бишкек, микрорайон, улица, дом" required></textarea>
                 </div>
                 <button type="submit" class="save-address-btn">Сохранить</button>
             </form>

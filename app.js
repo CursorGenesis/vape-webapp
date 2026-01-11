@@ -2,86 +2,88 @@
 const tg = window.Telegram?.WebApp;
 if (tg) { tg.ready(); tg.expand(); }
 
-// ========== DATA ==========
+// ========== DATA (Цены в СОМ) ==========
 const products = [
     {
         id: 1, brand: 'Elf Bar', name: 'BC5000', puffs: 5000, category: 'elfbar', badge: 'Хит',
         variants: [
-            { id: 'v1', name: 'Клубника Банан', emoji: '🍓', price: 1200 },
-            { id: 'v2', name: 'Манго Персик', emoji: '🥭', price: 1200 },
-            { id: 'v3', name: 'Арбуз Лёд', emoji: '🍉', price: 1200 },
-            { id: 'v4', name: 'Виноград', emoji: '🍇', price: 1200 }
+            { id: 'v1', name: 'Клубника Банан', emoji: '🍓', price: 850 },
+            { id: 'v2', name: 'Манго Персик', emoji: '🥭', price: 850 },
+            { id: 'v3', name: 'Арбуз Лёд', emoji: '🍉', price: 850 },
+            { id: 'v4', name: 'Виноград', emoji: '🍇', price: 850 }
         ]
     },
     {
         id: 2, brand: 'Elf Bar', name: 'TE5000', puffs: 5000, category: 'elfbar',
         variants: [
-            { id: 'v1', name: 'Черника', emoji: '🫐', price: 1100 },
-            { id: 'v2', name: 'Персик Лёд', emoji: '🍑', price: 1100 },
-            { id: 'v3', name: 'Кола', emoji: '🥤', price: 1100 }
+            { id: 'v1', name: 'Черника', emoji: '🫐', price: 800 },
+            { id: 'v2', name: 'Персик Лёд', emoji: '🍑', price: 800 },
+            { id: 'v3', name: 'Кола', emoji: '🥤', price: 800 }
         ]
     },
     {
         id: 3, brand: 'HQD', name: 'Cuvie Plus', puffs: 1200, category: 'hqd', badge: 'Новинка',
         variants: [
-            { id: 'v1', name: 'Черника Малина', emoji: '🫐', price: 800 },
-            { id: 'v2', name: 'Киви Клубника', emoji: '🥝', price: 800 },
-            { id: 'v3', name: 'Мята', emoji: '🌿', price: 800 }
+            { id: 'v1', name: 'Черника Малина', emoji: '🫐', price: 550 },
+            { id: 'v2', name: 'Киви Клубника', emoji: '🥝', price: 550 },
+            { id: 'v3', name: 'Мята', emoji: '🌿', price: 550 }
         ]
     },
     {
         id: 4, brand: 'HQD', name: 'Surv+', puffs: 4500, category: 'hqd',
         variants: [
-            { id: 'v1', name: 'Персик Лимонад', emoji: '🍑', price: 1000 },
-            { id: 'v2', name: 'Энергетик', emoji: '⚡', price: 1000 },
-            { id: 'v3', name: 'Апельсин', emoji: '🍊', price: 1000 }
+            { id: 'v1', name: 'Персик Лимонад', emoji: '🍑', price: 700 },
+            { id: 'v2', name: 'Энергетик', emoji: '⚡', price: 700 },
+            { id: 'v3', name: 'Апельсин', emoji: '🍊', price: 700 }
         ]
     },
     {
         id: 5, brand: 'HQD', name: 'Titan', puffs: 7000, category: 'hqd',
         variants: [
-            { id: 'v1', name: 'Мята Холодок', emoji: '🌿', price: 1300 },
-            { id: 'v2', name: 'Ягодный Микс', emoji: '🍇', price: 1300 }
+            { id: 'v1', name: 'Мята Холодок', emoji: '🌿', price: 900 },
+            { id: 'v2', name: 'Ягодный Микс', emoji: '🍇', price: 900 }
         ]
     },
     {
         id: 6, brand: 'Waka', name: 'SoPro PA10000', puffs: 10000, category: 'waka', badge: 'Топ',
         variants: [
-            { id: 'v1', name: 'Ежевика', emoji: '🫐', price: 1500 },
-            { id: 'v2', name: 'Тропический Микс', emoji: '🏝️', price: 1500 },
-            { id: 'v3', name: 'Вишня', emoji: '🍒', price: 1500 }
+            { id: 'v1', name: 'Ежевика', emoji: '🫐', price: 1100 },
+            { id: 'v2', name: 'Тропический Микс', emoji: '🏝️', price: 1100 },
+            { id: 'v3', name: 'Вишня', emoji: '🍒', price: 1100 }
         ]
     },
     {
         id: 7, brand: 'Waka', name: 'SoMatch MB6000', puffs: 6000, category: 'waka',
         variants: [
-            { id: 'v1', name: 'Апельсин Лёд', emoji: '🍊', price: 1100 },
-            { id: 'v2', name: 'Лимон Лайм', emoji: '🍋', price: 1100 }
+            { id: 'v1', name: 'Апельсин Лёд', emoji: '🍊', price: 800 },
+            { id: 'v2', name: 'Лимон Лайм', emoji: '🍋', price: 800 }
         ]
     },
     {
         id: 8, brand: 'Lost Mary', name: 'BM5000', puffs: 5000, category: 'lost-mary',
         variants: [
-            { id: 'v1', name: 'Яблоко Груша', emoji: '🍏', price: 950 },
-            { id: 'v2', name: 'Клубника Киви', emoji: '🍓', price: 950 }
+            { id: 'v1', name: 'Яблоко Груша', emoji: '🍏', price: 700 },
+            { id: 'v2', name: 'Клубника Киви', emoji: '🍓', price: 700 }
         ]
     },
     {
         id: 9, brand: 'Lost Mary', name: 'OS5000', puffs: 5000, category: 'lost-mary', badge: 'Популярное',
         variants: [
-            { id: 'v1', name: 'Вишня Кола', emoji: '🍒', price: 1000 },
-            { id: 'v2', name: 'Сахарная Вата', emoji: '🍬', price: 1000 },
-            { id: 'v3', name: 'Арбуз', emoji: '🍉', price: 1000 }
+            { id: 'v1', name: 'Вишня Кола', emoji: '🍒', price: 750 },
+            { id: 'v2', name: 'Сахарная Вата', emoji: '🍬', price: 750 },
+            { id: 'v3', name: 'Арбуз', emoji: '🍉', price: 750 }
         ]
     }
 ];
+
+const CURRENCY = ' сом';
+const DELIVERY_COST = 100; // сом
 
 // ========== STATE ==========
 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
 let addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
 let orders = JSON.parse(localStorage.getItem('orders') || '[]');
-let bonuses = parseInt(localStorage.getItem('bonuses') || '0');
 let currentPromo = null;
 let selectedProduct = null;
 let selectedVariant = null;
@@ -98,7 +100,6 @@ function switchPage(pageName) {
     document.querySelector(`[data-page="${pageName}"]`)?.classList.add('active');
     if (pageName === 'favorites') renderFavorites();
     if (pageName === 'cart') renderCart();
-    if (pageName === 'profile') updateProfileBonuses();
 }
 navItems.forEach(item => item.addEventListener('click', () => switchPage(item.dataset.page)));
 
@@ -120,7 +121,7 @@ function renderProducts(filter = 'all', search = '') {
                 <div class="product-name">${p.name}</div>
                 <div class="product-puffs-info">${p.puffs} затяжек</div>
                 <div class="product-footer">
-                    <span class="product-price">от ${Math.min(...p.variants.map(v => v.price))} ₽</span>
+                    <span class="product-price">от ${Math.min(...p.variants.map(v => v.price))}${CURRENCY}</span>
                     <button class="quick-add-btn" onclick="event.stopPropagation(); openProduct(${p.id})">+</button>
                 </div>
             </div>
@@ -154,7 +155,7 @@ function renderFavorites() {
                 <div class="product-brand">${p.brand}</div>
                 <div class="product-name">${p.name}</div>
                 <div class="product-footer">
-                    <span class="product-price">от ${Math.min(...p.variants.map(v => v.price))} ₽</span>
+                    <span class="product-price">от ${Math.min(...p.variants.map(v => v.price))}${CURRENCY}</span>
                     <button class="quick-add-btn" onclick="event.stopPropagation(); openProduct(${p.id})">+</button>
                 </div>
             </div>
@@ -200,7 +201,7 @@ function updateAddToCartBtn() {
     const text = document.querySelector('.modal-action-text');
     if (selectedVariant) {
         btn.classList.add('enabled');
-        btn.textContent = `В корзину • ${selectedVariant.price} ₽`;
+        btn.textContent = `В корзину • ${selectedVariant.price}${CURRENCY}`;
         text.textContent = selectedVariant.name;
         btn.onclick = () => addToCart();
     } else {
@@ -270,7 +271,7 @@ function renderCart() {
                     <div class="cart-item-name">${product.brand} ${product.name}</div>
                     <div class="cart-item-variant">${variant.name}</div>
                     <div class="cart-item-bottom">
-                        <span class="cart-item-price">${itemTotal} ₽</span>
+                        <span class="cart-item-price">${itemTotal}${CURRENCY}</span>
                         <div class="qty-controls">
                             <button class="qty-btn" onclick="updateCartItem('${item.key}', -1)">−</button>
                             <span class="qty-value">${item.qty}</span>
@@ -284,16 +285,16 @@ function renderCart() {
     const discount = currentPromo ? Math.floor(subtotal * 0.1) : 0;
     const total = subtotal - discount;
     document.getElementById('cartItemsCount').textContent = `${cart.reduce((s, i) => s + i.qty, 0)} товаров`;
-    document.getElementById('cartTotalTop').textContent = `${total} ₽`;
-    document.getElementById('subtotal').textContent = `${subtotal} ₽`;
-    document.getElementById('discount').textContent = discount > 0 ? `-${discount} ₽` : '0 ₽';
-    document.getElementById('finalTotal').textContent = `${total} ₽`;
+    document.getElementById('cartTotalTop').textContent = `${total}${CURRENCY}`;
+    document.getElementById('subtotal').textContent = `${subtotal}${CURRENCY}`;
+    document.getElementById('discount').textContent = discount > 0 ? `-${discount}${CURRENCY}` : `0${CURRENCY}`;
+    document.getElementById('finalTotal').textContent = `${total}${CURRENCY}`;
 }
 
 function applyPromo() {
     const input = document.getElementById('promoInput');
     const code = input.value.trim().toUpperCase();
-    if (code === 'СКИДКА10' || code === 'SALE10') {
+    if (code === 'СКИДКА10' || code === 'SALE10' || code === 'BISHKEK') {
         currentPromo = code;
         input.style.borderColor = '#10b981';
         renderCart();
@@ -308,7 +309,6 @@ function openCheckout() {
     if (cart.length === 0) return;
     updateSavedAddresses();
     updateCheckoutTotal();
-    document.getElementById('availableBonuses').textContent = bonuses;
     openModal('checkoutModal');
 }
 
@@ -331,16 +331,13 @@ function updateCheckoutTotal() {
         return sum + (variant?.price || 0) * item.qty;
     }, 0);
     const discount = currentPromo ? Math.floor(subtotal * 0.1) : 0;
-    const useBonuses = document.getElementById('useBonuses')?.checked;
-    const bonusDiscount = useBonuses ? Math.min(bonuses, Math.floor(subtotal * 0.3)) : 0;
     const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value;
-    const deliveryCost = deliveryType === 'courier' ? 300 : 0;
-    const total = subtotal - discount - bonusDiscount + deliveryCost;
-    document.getElementById('checkoutProducts').textContent = `${subtotal} ₽`;
-    document.getElementById('checkoutDiscount').textContent = discount > 0 ? `-${discount} ₽` : '0 ₽';
-    document.getElementById('checkoutBonuses').textContent = bonusDiscount > 0 ? `-${bonusDiscount} ₽` : '0 ₽';
-    document.getElementById('checkoutDelivery').textContent = deliveryCost > 0 ? `${deliveryCost} ₽` : 'Бесплатно';
-    document.getElementById('checkoutTotal').textContent = `${total} ₽`;
+    const deliveryCost = deliveryType === 'courier' ? DELIVERY_COST : 0;
+    const total = subtotal - discount + deliveryCost;
+    document.getElementById('checkoutProducts').textContent = `${subtotal}${CURRENCY}`;
+    document.getElementById('checkoutDiscount').textContent = discount > 0 ? `-${discount}${CURRENCY}` : `0${CURRENCY}`;
+    document.getElementById('checkoutDelivery').textContent = deliveryCost > 0 ? `${deliveryCost}${CURRENCY}` : 'Бесплатно';
+    document.getElementById('checkoutTotal').textContent = `${total}${CURRENCY}`;
 }
 
 document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', updateCheckoutTotal));
@@ -352,9 +349,9 @@ document.getElementById('checkoutForm').addEventListener('submit', function (e) 
         const variant = product?.variants.find(v => v.id === item.variantId);
         return sum + (variant?.price || 0) * item.qty;
     }, 0);
-    const earnedBonuses = Math.floor(subtotal * 0.05);
-    const useBonuses = document.getElementById('useBonuses')?.checked;
-    const bonusUsed = useBonuses ? Math.min(bonuses, Math.floor(subtotal * 0.3)) : 0;
+    const discount = currentPromo ? Math.floor(subtotal * 0.1) : 0;
+    const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value;
+    const deliveryCost = deliveryType === 'courier' ? DELIVERY_COST : 0;
     const order = {
         id: Date.now(),
         date: new Date().toLocaleDateString('ru-RU'),
@@ -363,31 +360,31 @@ document.getElementById('checkoutForm').addEventListener('submit', function (e) 
             const variant = product?.variants.find(v => v.id === item.variantId);
             return { name: `${product?.brand} ${product?.name} - ${variant?.name}`, qty: item.qty, price: variant?.price };
         }),
-        total: subtotal - (currentPromo ? Math.floor(subtotal * 0.1) : 0) - bonusUsed + (document.querySelector('input[name="delivery"]:checked')?.value === 'courier' ? 300 : 0),
+        total: subtotal - discount + deliveryCost,
         status: 'pending',
-        customer: { name: document.getElementById('customerName').value, phone: document.getElementById('customerPhone').value, address: document.getElementById('deliveryAddress').value }
+        customer: {
+            name: document.getElementById('customerName').value,
+            phone: document.getElementById('customerPhone').value,
+            address: document.getElementById('deliveryAddress').value
+        },
+        delivery: deliveryType,
+        discount: discount
     };
     orders.unshift(order);
     localStorage.setItem('orders', JSON.stringify(orders));
-    bonuses = bonuses - bonusUsed + earnedBonuses;
-    localStorage.setItem('bonuses', JSON.stringify(bonuses));
+    // Отправляем данные в Telegram бота
     if (tg) {
         tg.sendData(JSON.stringify(order));
     }
     cart = [];
     saveCart();
     currentPromo = null;
-    document.getElementById('earnedBonuses').textContent = earnedBonuses;
     closeModal('checkoutModal');
     openModal('successModal');
-    updateBonusDisplay();
 });
 
 // ========== ADDRESSES ==========
-function openAddresses() {
-    renderAddresses();
-    openModal('addressesModal');
-}
+function openAddresses() { renderAddresses(); openModal('addressesModal'); }
 function closeAddresses() { closeModal('addressesModal'); }
 
 function renderAddresses() {
@@ -424,10 +421,7 @@ function deleteAddress(index) {
 }
 
 // ========== ORDERS ==========
-function openOrders() {
-    renderOrders();
-    openModal('ordersModal');
-}
+function openOrders() { renderOrders(); openModal('ordersModal'); }
 function closeOrders() { closeModal('ordersModal'); }
 
 function renderOrders() {
@@ -442,23 +436,14 @@ function renderOrders() {
                 <span class="order-status ${o.status}">${o.status === 'pending' ? 'В обработке' : 'Доставлен'}</span>
             </div>
             <div class="order-items">${o.items.map(i => `${i.name} x${i.qty}`).join(', ')}</div>
-            <div class="order-total">${o.total} ₽</div>
+            <div class="order-total">${o.total}${CURRENCY}</div>
         </div>
     `).join('');
 }
 
-// ========== BONUSES ==========
-function openBonusInfo() {
-    document.getElementById('bonusCardValue').textContent = bonuses;
-    openModal('bonusModal');
-}
-function closeBonusInfo() { closeModal('bonusModal'); }
-
-function updateBonusDisplay() {
-    document.getElementById('bonusCount').textContent = bonuses;
-    document.getElementById('profileBonus').textContent = bonuses;
-}
-function updateProfileBonuses() { document.getElementById('profileBonus').textContent = bonuses; }
+// ========== ABOUT ==========
+function openAbout() { openModal('aboutModal'); }
+function closeAbout() { closeModal('aboutModal'); }
 
 // ========== MODALS ==========
 function openModal(id) {
@@ -493,4 +478,3 @@ document.getElementById('categories').addEventListener('click', e => {
 // ========== INIT ==========
 renderProducts();
 updateCartBadge();
-updateBonusDisplay();
