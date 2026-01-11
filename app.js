@@ -372,15 +372,28 @@ document.getElementById('checkoutForm').addEventListener('submit', function (e) 
     };
     orders.unshift(order);
     localStorage.setItem('orders', JSON.stringify(orders));
-    // Отправляем данные в Telegram бота
-    if (tg) {
-        tg.sendData(JSON.stringify(order));
-    }
     cart = [];
     saveCart();
     currentPromo = null;
-    closeModal('checkoutModal');
-    openModal('successModal');
+
+    // Отправляем данные в Telegram бота и закрываем Web App
+    if (tg && tg.sendData) {
+        try {
+            tg.sendData(JSON.stringify(order));
+            // Принудительно закрываем Web App
+            setTimeout(() => {
+                if (tg.close) tg.close();
+            }, 100);
+        } catch (err) {
+            console.error('Ошибка sendData:', err);
+            closeModal('checkoutModal');
+            openModal('successModal');
+        }
+    } else {
+        // Если не в Telegram - показываем модалку
+        closeModal('checkoutModal');
+        openModal('successModal');
+    }
 });
 
 // ========== ADDRESSES ==========
