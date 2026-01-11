@@ -1,95 +1,235 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VapeShop - Каталог одноразовых сигарет</title>
-    <meta name="description" content="Каталог одноразовых электронных сигарет с доставкой. Широкий выбор вкусов.">
+    <title>VapeShop - Каталог</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header-title">VapeShop</h1>
+            <div class="header-right">
+                <div class="bonus-badge" id="bonusBadge">
+                    <span class="bonus-icon">💎</span>
+                    <span class="bonus-count" id="bonusCount">0</span>
                 </div>
-                <h1>VapeShop</h1>
             </div>
-            <button class="cart-btn" id="cartBtn">
+        </header>
+
+        <!-- Pages Container -->
+        <main class="pages-container">
+            <!-- Catalog Page -->
+            <div class="page active" id="catalogPage">
+                <div class="search-container">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="Поиск товаров...">
+                    </div>
+                </div>
+                <div class="categories" id="categories">
+                    <button class="category-btn active" data-category="all">Все</button>
+                    <button class="category-btn" data-category="elfbar">Elf Bar</button>
+                    <button class="category-btn" data-category="hqd">HQD</button>
+                    <button class="category-btn" data-category="waka">Waka</button>
+                    <button class="category-btn" data-category="lost-mary">Lost Mary</button>
+                </div>
+                <div class="products-grid" id="productsGrid"></div>
+            </div>
+
+            <!-- Favorites Page -->
+            <div class="page" id="favoritesPage">
+                <div class="page-header">
+                    <h2>Избранное</h2>
+                </div>
+                <div class="favorites-grid" id="favoritesGrid"></div>
+                <div class="empty-state" id="favoritesEmpty">
+                    <span class="empty-icon">❤️</span>
+                    <p>Нет избранных товаров</p>
+                    <small>Нажмите ❤️ на товаре, чтобы добавить в избранное</small>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div class="page" id="profilePage">
+                <div class="profile-header">
+                    <span class="profile-greeting">Добрый день 👋</span>
+                    <div class="profile-bonus">
+                        <span class="bonus-icon-lg">💎</span>
+                        <span class="bonus-amount" id="profileBonus">0</span>
+                    </div>
+                </div>
+                <div class="profile-menu">
+                    <div class="menu-item" onclick="openAddresses()">
+                        <span class="menu-icon">📍</span>
+                        <span class="menu-text">Мои адреса</span>
+                        <span class="menu-arrow">›</span>
+                    </div>
+                    <div class="menu-item" onclick="openOrders()">
+                        <span class="menu-icon">📦</span>
+                        <span class="menu-text">Мои заказы</span>
+                        <span class="menu-arrow">›</span>
+                    </div>
+                    <div class="menu-item" onclick="openBonusInfo()">
+                        <span class="menu-icon">💎</span>
+                        <span class="menu-text">Бонусная система</span>
+                        <span class="menu-arrow">›</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Page -->
+            <div class="page" id="cartPage">
+                <div class="page-header">
+                    <h2>Корзина</h2>
+                </div>
+                <div class="cart-summary" id="cartSummary">
+                    <span id="cartItemsCount">0 товаров</span> на <span id="cartTotalTop">0 ₽</span>
+                </div>
+                <div class="cart-items-list" id="cartItemsList"></div>
+                <div class="promo-section">
+                    <input type="text" id="promoInput" placeholder="Ввести промокод">
+                    <button class="promo-btn" onclick="applyPromo()">Применить</button>
+                </div>
+                <div class="cart-totals">
+                    <div class="total-row"><span>Товары:</span><span id="subtotal">0 ₽</span></div>
+                    <div class="total-row"><span>Скидка:</span><span id="discount" class="discount">0 ₽</span></div>
+                    <div class="total-row"><span>Доставка:</span><span id="deliveryPrice">Бесплатно</span></div>
+                </div>
+                <button class="checkout-main-btn" id="checkoutMainBtn" onclick="openCheckout()">
+                    Оформить заказ на <span id="finalTotal">0 ₽</span>
+                </button>
+                <div class="empty-state" id="cartEmpty">
+                    <span class="empty-icon">🛒</span>
+                    <p>Корзина пуста</p>
+                    <small>Добавьте товары из каталога</small>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-page="catalog">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
                 </svg>
-                <span class="cart-count" id="cartCount">0</span>
+                <span>Каталог</span>
             </button>
-        </div>
-    </header>
+            <button class="nav-item" data-page="favorites">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+                <span>Избранное</span>
+            </button>
+            <button class="nav-item" data-page="profile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span>Профиль</span>
+            </button>
+            <button class="nav-item" data-page="cart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                <span>Корзина</span>
+                <span class="nav-badge" id="navCartBadge">0</span>
+            </button>
+        </nav>
+    </div>
 
-    <!-- Search -->
-    <div class="search-container">
-        <div class="search-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" id="searchInput" placeholder="Поиск товаров...">
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal product-modal">
+            <div class="product-modal-header">
+                <button class="favorite-btn" id="modalFavoriteBtn">❤️</button>
+                <button class="modal-close" id="closeProduct">✕</button>
+            </div>
+            <div class="product-modal-image" id="modalProductImage"></div>
+            <div class="product-modal-content">
+                <h2 id="modalProductName"></h2>
+                <div class="product-puffs" id="modalProductPuffs"></div>
+                <div class="variants-section">
+                    <p class="variants-label">Выберите вкус:</p>
+                    <div class="variants-grid" id="variantsGrid"></div>
+                </div>
+            </div>
+            <div class="product-modal-footer">
+                <span class="modal-action-text">Сделайте свой выбор</span>
+                <button class="add-to-cart-modal-btn" id="addToCartModalBtn">В корзину</button>
+            </div>
         </div>
     </div>
 
-    <!-- Categories -->
-    <div class="categories" id="categories">
-        <button class="category-btn active" data-category="all">Все</button>
-        <button class="category-btn" data-category="elfbar">Elf Bar</button>
-        <button class="category-btn" data-category="hqd">HQD</button>
-        <button class="category-btn" data-category="waka">Waka</button>
-        <button class="category-btn" data-category="lost-mary">Lost Mary</button>
-    </div>
-
-    <!-- Products Grid -->
-    <main class="products-container">
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be rendered here -->
-        </div>
-    </main>
-
-    <!-- Cart Modal -->
-    <div class="modal-overlay" id="cartModal">
+    <!-- Addresses Modal -->
+    <div class="modal-overlay" id="addressesModal">
         <div class="modal">
             <div class="modal-header">
-                <h2>Корзина</h2>
-                <button class="modal-close" id="closeCart">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
+                <h2>Мои адреса</h2>
+                <button class="modal-close" onclick="closeAddresses()">✕</button>
             </div>
-            <div class="cart-items" id="cartItems">
-                <!-- Cart items will be rendered here -->
+            <div class="addresses-list" id="addressesList"></div>
+            <button class="add-address-btn" onclick="addNewAddress()">+ Добавить адрес</button>
+        </div>
+    </div>
+
+    <!-- Orders Modal -->
+    <div class="modal-overlay" id="ordersModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Мои заказы</h2>
+                <button class="modal-close" onclick="closeOrders()">✕</button>
             </div>
-            <div class="cart-empty" id="cartEmpty">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-                <p>Корзина пуста</p>
+            <div class="orders-list" id="ordersList"></div>
+            <div class="empty-state" id="ordersEmpty">
+                <span class="empty-icon">📦</span>
+                <p>Нет заказов</p>
             </div>
-            <div class="cart-footer" id="cartFooter">
-                <div class="cart-total">
-                    <span>Итого:</span>
-                    <span id="cartTotal">0 ₽</span>
+        </div>
+    </div>
+
+    <!-- Bonus Info Modal -->
+    <div class="modal-overlay" id="bonusModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Бонусная система</h2>
+                <button class="modal-close" onclick="closeBonusInfo()">✕</button>
+            </div>
+            <div class="bonus-info">
+                <div class="bonus-card">
+                    <span class="bonus-icon-xl">💎</span>
+                    <span class="bonus-value" id="bonusCardValue">0</span>
+                    <span class="bonus-label">бонусов</span>
                 </div>
-                <button class="checkout-btn" id="checkoutBtn">Оформить заказ</button>
+                <div class="bonus-rules">
+                    <h3>Как получить бонусы:</h3>
+                    <ul>
+                        <li>5% от каждой покупки</li>
+                        <li>Бонусы за отзывы</li>
+                        <li>Бонусы за приглашение друзей</li>
+                    </ul>
+                    <h3>Как потратить:</h3>
+                    <ul>
+                        <li>Оплачивайте до 30% заказа бонусами</li>
+                        <li>1 бонус = 1 рубль</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -99,25 +239,23 @@
         <div class="modal checkout-modal">
             <div class="modal-header">
                 <h2>Оформление заказа</h2>
-                <button class="modal-close" id="closeCheckout">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
+                <button class="modal-close" id="closeCheckout">✕</button>
             </div>
             <form class="checkout-form" id="checkoutForm">
                 <div class="form-group">
-                    <label for="customerName">Ваше имя</label>
+                    <label>Ваше имя</label>
                     <input type="text" id="customerName" required placeholder="Введите имя">
                 </div>
                 <div class="form-group">
-                    <label for="customerPhone">Телефон</label>
+                    <label>Телефон</label>
                     <input type="tel" id="customerPhone" required placeholder="+7 (999) 999-99-99">
                 </div>
                 <div class="form-group">
-                    <label for="deliveryAddress">Адрес доставки</label>
-                    <textarea id="deliveryAddress" required placeholder="Город, улица, дом, квартира"></textarea>
+                    <label>Адрес доставки</label>
+                    <select id="savedAddress" onchange="handleAddressChange()">
+                        <option value="">Выберите сохранённый адрес</option>
+                    </select>
+                    <textarea id="deliveryAddress" required placeholder="Или введите новый адрес"></textarea>
                 </div>
                 <div class="form-group">
                     <label>Способ доставки</label>
@@ -125,41 +263,30 @@
                         <label class="radio-option">
                             <input type="radio" name="delivery" value="courier" checked>
                             <span class="radio-custom"></span>
-                            <span class="radio-label">
-                                <strong>Курьер</strong>
-                                <small>1-2 дня, 300 ₽</small>
-                            </span>
+                            <span class="radio-label"><strong>Курьер</strong><small>1-2 дня, 300 ₽</small></span>
                         </label>
                         <label class="radio-option">
                             <input type="radio" name="delivery" value="pickup">
                             <span class="radio-custom"></span>
-                            <span class="radio-label">
-                                <strong>Самовывоз</strong>
-                                <small>Бесплатно</small>
-                            </span>
+                            <span class="radio-label"><strong>Самовывоз</strong><small>Бесплатно</small></span>
                         </label>
                     </div>
                 </div>
-                <div class="order-summary">
-                    <div class="summary-row">
-                        <span>Товары:</span>
-                        <span id="summaryProducts">0 ₽</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Доставка:</span>
-                        <span id="summaryDelivery">300 ₽</span>
-                    </div>
-                    <div class="summary-row total">
-                        <span>Итого:</span>
-                        <span id="summaryTotal">0 ₽</span>
-                    </div>
+                <div class="form-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" id="useBonuses" onchange="updateCheckoutTotal()">
+                        <span class="checkbox-custom"></span>
+                        <span>Списать бонусы (<span id="availableBonuses">0</span> доступно)</span>
+                    </label>
                 </div>
-                <button type="submit" class="submit-order-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                    </svg>
-                    Отправить заказ
-                </button>
+                <div class="order-summary">
+                    <div class="summary-row"><span>Товары:</span><span id="checkoutProducts">0 ₽</span></div>
+                    <div class="summary-row"><span>Скидка:</span><span id="checkoutDiscount">0 ₽</span></div>
+                    <div class="summary-row"><span>Бонусы:</span><span id="checkoutBonuses">0 ₽</span></div>
+                    <div class="summary-row"><span>Доставка:</span><span id="checkoutDelivery">300 ₽</span></div>
+                    <div class="summary-row total"><span>Итого:</span><span id="checkoutTotal">0 ₽</span></div>
+                </div>
+                <button type="submit" class="submit-order-btn">📨 Отправить заказ</button>
             </form>
         </div>
     </div>
@@ -167,18 +294,36 @@
     <!-- Success Modal -->
     <div class="modal-overlay" id="successModal">
         <div class="modal success-modal">
-            <div class="success-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-            </div>
+            <div class="success-icon">✅</div>
             <h2>Заказ оформлен!</h2>
-            <p>Мы свяжемся с вами в ближайшее время для подтверждения заказа.</p>
-            <button class="success-btn" id="successBtn">Отлично!</button>
+            <p>Мы свяжемся с вами в ближайшее время</p>
+            <div class="bonus-earned">+<span id="earnedBonuses">0</span> 💎 бонусов начислено!</div>
+            <button class="success-btn" onclick="closeSuccess()">Отлично!</button>
+        </div>
+    </div>
+
+    <!-- Add Address Modal -->
+    <div class="modal-overlay" id="addAddressModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Новый адрес</h2>
+                <button class="modal-close" onclick="closeAddAddress()">✕</button>
+            </div>
+            <form class="address-form" onsubmit="saveAddress(event)">
+                <div class="form-group">
+                    <label>Название</label>
+                    <input type="text" id="addressName" placeholder="Дом, Работа..." required>
+                </div>
+                <div class="form-group">
+                    <label>Адрес</label>
+                    <textarea id="addressValue" placeholder="Город, улица, дом, квартира" required></textarea>
+                </div>
+                <button type="submit" class="save-address-btn">Сохранить</button>
+            </form>
         </div>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>
