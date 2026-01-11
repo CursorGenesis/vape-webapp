@@ -383,25 +383,16 @@ document.getElementById('checkoutForm').addEventListener('submit', function (e) 
     currentPromo = null;
 
     // Отправляем данные в Telegram бота и закрываем Web App
-    console.log('=== Отправка заказа ===');
-    console.log('tg объект:', tg);
-    console.log('tg.sendData функция:', typeof tg?.sendData);
-    console.log('Заказ:', order);
-
     if (tg && typeof tg.sendData === 'function') {
         try {
-            alert('v2: Отправляю данные в бота... initData: ' + (tg.initData ? 'ЕСТЬ' : 'НЕТ'));
             tg.sendData(JSON.stringify(order));
-            alert('v2: sendData вызван, закрываю Web App...');
             tg.close();
         } catch (err) {
-            alert('Ошибка: ' + err.message);
             console.error('Ошибка sendData:', err);
             closeModal('checkoutModal');
             openModal('successModal');
         }
     } else {
-        alert('tg.sendData недоступен. tg=' + (tg ? 'есть' : 'нет'));
         // Если не в Telegram - показываем модалку
         closeModal('checkoutModal');
         openModal('successModal');
