@@ -390,9 +390,9 @@ document.getElementById('checkoutForm').addEventListener('submit', function (e) 
 
     if (tg && typeof tg.sendData === 'function') {
         try {
-            alert('Отправляю данные в бота...');
+            alert('v2: Отправляю данные в бота... initData: ' + (tg.initData ? 'ЕСТЬ' : 'НЕТ'));
             tg.sendData(JSON.stringify(order));
-            alert('sendData вызван, закрываю Web App...');
+            alert('v2: sendData вызван, закрываю Web App...');
             tg.close();
         } catch (err) {
             alert('Ошибка: ' + err.message);
