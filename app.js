@@ -1,6 +1,12 @@
 // Telegram Web App
 const tg = window.Telegram?.WebApp;
-if (tg) { tg.ready(); tg.expand(); }
+if (tg) {
+    tg.ready();
+    tg.expand();
+    console.log('Telegram WebApp инициализирован:', tg);
+    console.log('initData:', tg.initData);
+    console.log('initDataUnsafe:', tg.initDataUnsafe);
+}
 
 // ========== DATA (Цены в СОМ) ==========
 const products = [
@@ -377,19 +383,25 @@ document.getElementById('checkoutForm').addEventListener('submit', function (e) 
     currentPromo = null;
 
     // Отправляем данные в Telegram бота и закрываем Web App
-    if (tg && tg.sendData) {
+    console.log('=== Отправка заказа ===');
+    console.log('tg объект:', tg);
+    console.log('tg.sendData функция:', typeof tg?.sendData);
+    console.log('Заказ:', order);
+
+    if (tg && typeof tg.sendData === 'function') {
         try {
+            alert('Отправляю данные в бота...');
             tg.sendData(JSON.stringify(order));
-            // Принудительно закрываем Web App
-            setTimeout(() => {
-                if (tg.close) tg.close();
-            }, 100);
+            alert('sendData вызван, закрываю Web App...');
+            tg.close();
         } catch (err) {
+            alert('Ошибка: ' + err.message);
             console.error('Ошибка sendData:', err);
             closeModal('checkoutModal');
             openModal('successModal');
         }
     } else {
+        alert('tg.sendData недоступен. tg=' + (tg ? 'есть' : 'нет'));
         // Если не в Telegram - показываем модалку
         closeModal('checkoutModal');
         openModal('successModal');
